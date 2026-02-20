@@ -9,6 +9,7 @@ export default function Login() {
     const res = await axios.post("http://localhost:8000/login",{email,password});
     if(res.data.email){
       alert("Login Successful");
+      window.location.href="/dashboard";
     }else{
       alert("Invalid Credentials");
     }

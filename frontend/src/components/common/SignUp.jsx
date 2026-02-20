@@ -11,6 +11,7 @@ export default function SignUp() {
       name,email,password
     });
     alert("Registered Successfully");
+    window.location.href = "/login";
   };
 
   return (

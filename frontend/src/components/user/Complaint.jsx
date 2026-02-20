@@ -4,24 +4,27 @@ import axios from "axios";
 export default function Complaint() {
   const [issue, setIssue] = useState("");
 
-  const submitComplaint = async () => {
-    if (!issue) {
-      alert("Please enter complaint");
-      return;
-    }
+const submitComplaint = async () => {
+  if (!issue) {
+    alert("Please enter complaint");
+    return;
+  }
 
-    try {
-      await axios.post("/complaint", {
-        comment: issue
-      });
+  try {
+    const res = await axios.post("http://localhost:8000/complaint", {
+      comment: issue
+    });
 
-      alert("Complaint saved to database!");
-      setIssue("");
-    } catch (error) {
-      alert("Error saving complaint");
-    }
-  };
+    alert("Complaint submitted!");
 
+    // store complaint id
+    localStorage.setItem("complaintId", res.data.id);
+
+    setIssue("");
+  } catch (error) {
+    alert("Error saving complaint");
+  }
+};
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h2>Submit Complaint</h2>
@@ -37,6 +40,10 @@ export default function Complaint() {
       <br /><br />
 
       <button onClick={submitComplaint}>Submit</button>
+      <br /><br />
+      <button onClick={() => window.location.href="/status"}>
+        Track Complaint
+      </button>
     </div>
   );
 }

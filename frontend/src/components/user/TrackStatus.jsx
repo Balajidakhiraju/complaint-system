@@ -7,10 +7,7 @@ export default function Status() {
   useEffect(() => {
     const id = localStorage.getItem("complaintId");
 
-    if (!id) {
-      alert("No complaint found");
-      return;
-    }
+    if (!id) return;
 
     axios
       .get(`http://localhost:8000/status/${id}`)
@@ -18,7 +15,7 @@ export default function Status() {
       .catch(err => console.log(err));
   }, []);
 
-  if (!complaint) return <h3>Loading...</h3>;
+  if (!complaint) return <h2>Loading...</h2>;
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
